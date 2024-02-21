@@ -1,5 +1,5 @@
 # tweedie
-Workspace for the brms implementation of the tweedie distribution with power parameter $p \in[1, 2]$. This includes the compound poisson-gamma distribution and poisson and gamma distributions as edge cases, i.e.
+Workspace for the brms implementation of the tweedie distribution with power parameter $p \in[1, 2]$. This includes the Compound Poisson-Gamma (CPG) distribution and Poisson and Gamma distributions as edge cases, i.e.
 
 $$
 \begin{align*}
