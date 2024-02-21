@@ -3,7 +3,6 @@ Workspace for the brms implementation of the tweedie distribution with power par
 
 $$
 \begin{align*}
-
 \mathrm{Tweedie}\big(\mu, \phi, p = 1\big)&\quad\equiv\quad \text{Poisson}(\lambda) \\
 \mathrm{Tweedie}\big(\mu, \phi, p\in (1, 2)\big) &\quad\equiv\quad  \text{CPG}(\lambda, \alpha, \beta) \\
 \mathrm{Tweedie}\big(\mu, \phi, p = 2\big) &\quad\equiv\quad  \text{Gamma}(\alpha, \beta)
