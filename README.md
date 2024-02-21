@@ -1,20 +1,16 @@
 # tweedie
-Workspace for the brms implementation of the tweedie distribution with power parameter $p \in[1, 2]$. This includes the following special cases: 
-
-* $p = 1 \quad\rightarrow\quad \text{Poisson}(\lambda)$
+Workspace for the brms implementation of the tweedie distribution with power parameter $p \in[1, 2]$. This includes the compound poisson-gamma distribution and poisson and gamma distributions as edge cases, i.e.
 
 $$
-\mathrm{Tweedie}(\mu, \phi, p) = 
-  \begin{cases}
-    \mathrm{Poisson(\lambda)} &\quad p = 1\\
-    \text{Compound Poisson-Gamma (CPG)}(\lambda, \alpha, \beta) &\quad 1<p<2\\
-    \mathrm{Gamma}(\alpha, \beta) &\quad p = 2\\
-  \end{cases}
+\begin{align*}
+
+\mathrm{Tweedie}(\mu, \phi, p = 1)&\quad\equiv\quad \text{Poisson}(\lambda) \\
+\mathrm{Tweedie}(\mu, \phi, p\in (1, 2)) &\quad\equiv\quad  \text{CPG}(\lambda, \alpha, \beta) \\
+\mathrm{Tweedie}(\mu, \phi, p = 2) &\quad\equiv\quad  \text{Gamma}(\alpha, \beta)
+\end{align*}
 $$
 
-
-
-Note that the tweedie distribution is parameterised in terms of $\mu$, $\phi$ and $p$. When  $p \in (1, 2)$, it is sometimes called the tweedie compound poisson distribtution and is equivalent to the compound poisson-gamma (CPG) distribution in terms of $\lambda$, $\alpha$, and $\beta$, where
+where 
 
 $$
 \begin{align*}
@@ -26,6 +22,13 @@ $$
               {(p-1)\phi}  
 \end{align*}
 $$
+
+
+where CPG 
+
+Note that the tweedie distribution is parameterised in terms of $\mu$, $\phi$ and $p$. When  $p \in (1, 2)$, it is sometimes called the tweedie compound poisson distribtution and is equivalent to the compound poisson-gamma (CPG) distribution in terms of $\lambda$, $\alpha$, and $\beta$, where
+
+
 
 Model parameters: 
 
