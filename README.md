@@ -1,6 +1,6 @@
-# tweedie
+# tweedie 
 
-<img src="resources/tweety.jpg" alt="drawing" width="200"/>
+<p align="center"><img src="resources/tweety.jpg" width="200"/></p>
 
 This repo is a workspace for the brms implementation of the tweedie distribution with power parameter $p \in[1, 2]$. This includes the Compound Poisson-Gamma (CPG) distribution and Poisson and Gamma distributions as edge cases, i.e.
 
