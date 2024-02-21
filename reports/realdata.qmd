@@ -1,0 +1,127 @@
+---
+title: "Tweedie link function tests"
+subtitle: "Data is real but true meaning is obfuscated"
+engine: knitr
+format:
+  html:
+    toc: true
+    toc-location: left
+    toc-depth: 1
+    highlight-style: atom-one
+    embed-resources: true
+    theme:
+      light: flatly
+      dark: darkly
+    code-overflow: wrap
+    number-sections: false
+    fig-align: center
+---
+
+
+```{r knitrOpts, echo=F}
+knitr::opts_knit$set(root.dir = "..")
+```
+
+```{r setup, message=F}
+library(targets)
+library(brms)
+library(patchwork)
+library(tidyverse)
+source("https://raw.githubusercontent.com/open-AIMS/stats_helpers/main/R/dharma.R")
+source("R/tweedie_functions.R")
+
+target_names <- c(
+  # "rd_cmn_idnt",  
+  "rd_cmn_logmu",  
+  # "rd_rare_idnt", 
+  "rd_rare_logmu"
+)
+links <- rep(
+  c(
+    # "I(mu); I(phi); I(p)", 
+    "log(mu); I(phi); I(p)"
+    # "log(mu); log(phi); I(p)"
+  ), 
+  2
+)
+my_dharma <- function(dharma_res, form, plot_title) {
+  pres_maxn <- plot_residuals(dharma_res, form = form)
+  pqq_maxn <- plot_qq_unif(dharma_res)
+  pdisp_maxn <- gg_dispersion_hist(dharma_res, cutoff_hdci = 0.99, wrap_subtitle = 55)
+  pzi_maxn <- gg_zero_inflation_hist(dharma_res, wrap_subtitle = 55)
+  (pqq_maxn + pres_maxn) / (pdisp_maxn + pzi_maxn) + plot_annotation(title = plot_title)
+}
+my_ppcheck <- function(model, plot_title) {
+  dens <- brms::pp_check(model, type = "dens_overlay", ndraws = 300)
+  scat <- brms::pp_check(model, type = "scatter_avg")
+  dens + scat + plot_annotation(title = plot_title)
+}
+```
+
+# Runtimes
+```{r runtimes}
+runtimes <- data.frame()
+for(i in 1:length(target_names)) {
+  tgt <- tar_read_raw(target_names[i])
+  runtimes <- rbind(runtimes, data.frame(
+    model = c(target_names[i]),
+    links = links[i],
+    runtime = abs(round(tgt$t, 1))
+  ))
+}
+runtimes
+```
+
+# Convergence
+```{r convergence, fig.height = 12}
+for(target_name in target_names) {
+  print(target_name)
+  tgt <- tar_read_raw(target_name)
+  plot(tgt$mod, N = 10)
+}
+```
+
+# DHARMa residuals
+```{r dharma, fig.height = 12, fig.width = 8}
+p <- list()
+for(target_name in target_names) {
+  print(target_name)
+  tgt <- tar_read_raw(target_name)
+  try({
+    simres <- make_brms_dharma_res(tgt$mod)
+    p[[target_name]] <- my_dharma(simres,form = tgt$mod$data$habitat, target_name)
+  })
+}
+p
+```
+
+# PP checks
+```{r ppchecks}
+p <- list()
+for(target_name in target_names) {
+  tgt <- tar_read_raw(target_name)
+  p[[target_name]] <- my_ppcheck(tgt$mod, target_name)
+}
+p
+```
+
+# Model summary
+
+```{r modsumm}
+s <- list()
+for(target_name in target_names) {
+  print(target_name)
+  s[[target_name]] <- summary(tar_read_raw(target_name)$mod)
+}
+s
+```
+
+# Stancode
+
+```{r stancode}
+sc <- list()
+for(target_name in target_names) {
+  sc[[target_name]] <- stancode(tar_read_raw(target_name)$mod)
+}
+sc
+```

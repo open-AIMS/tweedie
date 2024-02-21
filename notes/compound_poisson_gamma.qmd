@@ -1,0 +1,26 @@
+# Compound Poisson-Gamma models
+
+For $n$ samples of biomass, each sample $i$ is the sum over $N$ individuals observed in the respective sample. For example, if we have data on fish biomass sampled via BRUVS, we might see 10 fish in the first BRUVS deployment (MaxN = 10); $Y_1$ is then the sum of the ten individual fish biomass values (estimated via length in the case of BRUVS). Therefore, for $M_{ip}$ the biomass of the $p$^th^ individual, $p = 1, ..., N$, in the $i$^th^ sample, $i = 1, ..., n$, we have biomass sample $Y_i$ as
+
+$$
+Y_i = 
+\begin{cases}
+  \sum^{N_i}_{p = 1} M_{ip}  & N_i > 1\\
+  0 & N_i = 0
+\end{cases}
+$$
+
+The CPG model assumes
+
+$$
+N_i \sim \mathrm{Poisson}(\lambda_i)
+$$
+$$
+M_{ip} \sim \mathrm{Gamma(a, b)}
+$$
+
+for shape paramater $a$ and rate $b$.
+
+We can express this more succinctly as $Y_i \sim \mathrm{CPG}(\lambda_i, a, b)$.
+
+Due to the additivity properties of the CPG distribution ([Jorgensen, 1987](https://doi.org/10.1111/j.2517-6161.1987.tb01685.x)), varied sampling effort may be accounted for directly via a scaling parameter $V$ as $Y_i \sim \mathrm{CPG}(\lambda_iV_i, a, b)$.
