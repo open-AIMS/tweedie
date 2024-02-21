@@ -3,7 +3,7 @@ Workspace for the brms implementation of the tweedie distribution with power par
 
 Notation: 
 
-* $Y \sim \mathrm{tweedie}(\mu, \phi, \p)$
+* $Y \sim \mathrm{tweedie}(\mu, \phi, p)$
 * `mu` = $\mu$
 * `mphi` = $\phi$
 * `mtheta` = $p$
