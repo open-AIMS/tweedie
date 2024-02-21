@@ -29,7 +29,7 @@ Model parameters:
 * `mphi` = $f_\phi(\phi)$
 * `mtheta` = $f_p(p)$
 
-where $\eta$ is the linear predictor (e.g. $\eta = \pmb{\beta X + \Delta}$) and $f$ are the link functions with inverse functions $f^{-1}$ such that $f^{-1}_*\big(f_*(x)\big) = x$.
+where $\eta$ is the linear predictor (e.g. $\eta = \pmb{\beta X + \Delta}$) and $f$ are the link functions with inverse functions $f^{-1}$ such that $f^{-1}\big(f(x)\big) = x$.
 
 
 ## Repo overview: 
