@@ -2,26 +2,34 @@
 Workspace for the brms implementation of the tweedie distribution with power parameter $p \in[1, 2]$:
 
 $$
-\begin{cases}
-p = 1 &\quad \mathrm{poisson} \\
-1<p<2 &\quad \mathrm{compound poisson-gamma} \text{ (CPG)} \\
-p = 2 &\quad \mathrm{gamma} \\
-\end{cases}
+\mathrm{Tweedie}(\mu, \phi, p) = 
+  \begin{cases}
+    \mathrm{Poisson(\lambda)} &\quad p = 1\\
+    \text{Compound Poisson-Gamma (CPG)}(\lambda, \alpha, \beta) &\quad 1<p<2\\
+    \mathrm{Gamma}(\alpha, \beta) &\quad p = 2\\
+  \end{cases}
 $$
 
-a.k.a. tweedie compound poisson, compound poisson-gamma (CPG) distribution.
+Note that the tweedie distribution is parameterised in terms of $\mu$, $\phi$ and $p$. When  $p \in (1, 2)$, it is sometimes called the tweedie compound poisson distribtution and is equivalent to the compound poisson-gamma (CPG) distribution in terms of $\lambda$, $\alpha$, and $\beta$, where
 
-Notation: 
+$$
+\begin{align*}
+\lambda &= \frac{\mu^{2-p}}
+               {(2-p)\phi} \\ \\
+\alpha &= \frac{2-p}
+               {p-1}  \\ \\
+\beta &= \frac{\mu^{1-p}}
+              {(p-1)\phi}  
+\end{align*}
+$$
 
-* $Y \sim \mathrm{tweedie}(\mu, \phi, p)$
-* `mu` = $\mu$
-* `mphi` = $\phi$
-* `mtheta` = $p$
+Model parameters: 
 
-Links: 
+* `mu`  $= \mu = f^{-1}_\mu(\eta)$
+* `mphi` = $f_\phi(\phi)$
+* `mtheta` = $f_p(p)$
 
-* `identity`: $\mu = \eta$
-* `logmu`: $\log(\mu) = \eta$
+where $\eta$ is the linear predictor (e.g. $\eta = \pmb{\beta X + \Delta}$) and $f_*$ is the link function for the distributional parameters $*$ with inverse link functions $f^{-1}_*$ such that $f^{-1}_*\big(f_*(x)\big) = x$.
 
 
 ## Repo overview: 
