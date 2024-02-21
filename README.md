@@ -4,13 +4,13 @@ Workspace for the brms implementation of the tweedie distribution with power par
 $$
 \begin{align*}
 
-\mathrm{Tweedie}(\mu, \phi, p = 1)&\quad\equiv\quad \text{Poisson}(\lambda) \\
-\mathrm{Tweedie}(\mu, \phi, p\in (1, 2)) &\quad\equiv\quad  \text{CPG}(\lambda, \alpha, \beta) \\
-\mathrm{Tweedie}(\mu, \phi, p = 2) &\quad\equiv\quad  \text{Gamma}(\alpha, \beta)
+\mathrm{Tweedie}\big(\mu, \phi, p = 1\big)&\quad\equiv\quad \text{Poisson}(\lambda) \\
+\mathrm{Tweedie}\big(\mu, \phi, p\in (1, 2)\big) &\quad\equiv\quad  \text{CPG}(\lambda, \alpha, \beta) \\
+\mathrm{Tweedie}\big(\mu, \phi, p = 2\big) &\quad\equiv\quad  \text{Gamma}(\alpha, \beta)
 \end{align*}
 $$
 
-where 
+for
 
 $$
 \begin{align*}
@@ -19,14 +19,12 @@ $$
 \alpha &= \frac{2-p}
                {p-1}  \\ \\
 \beta &= \frac{\mu^{1-p}}
-              {(p-1)\phi}  
+              {(p-1)\phi}
 \end{align*}
 $$
 
 
-where CPG 
-
-Note that the tweedie distribution is parameterised in terms of $\mu$, $\phi$ and $p$. When  $p \in (1, 2)$, it is sometimes called the tweedie compound poisson distribtution and is equivalent to the compound poisson-gamma (CPG) distribution in terms of $\lambda$, $\alpha$, and $\beta$, where
+Note that the tweedie distribution (parameterised in terms of $\mu$, $\phi$ and $p$) for  $p \in (1, 2)$ is sometimes called the tweedie compound poisson distribtution.
 
 
 
