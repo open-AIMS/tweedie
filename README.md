@@ -1,5 +1,15 @@
 # tweedie
-Workspace for the brms implementation of the tweedie distribution with power parameter in [1, 2] a.k.a. tweedie compound poisson, compound poisson-gamma (CPG) distribution.
+Workspace for the brms implementation of the tweedie distribution with power parameter $p \in[1, 2]$:
+
+$$
+\begin{cases}
+p = 1 &\quad \mathrm{poisson} \\
+1<p<2 &\quad \mathrm{compound poisson-gamma} \text{ (CPG)} \\
+p = 2 &\quad \mathrm{gamma} \\
+\end{cases}
+$$
+
+a.k.a. tweedie compound poisson, compound poisson-gamma (CPG) distribution.
 
 Notation: 
 
