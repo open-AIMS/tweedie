@@ -1,5 +1,7 @@
 # tweedie
-Workspace for the brms implementation of the tweedie distribution with power parameter $p \in[1, 2]$:
+Workspace for the brms implementation of the tweedie distribution with power parameter $p \in[1, 2]$. This includes the following special cases: 
+
+* $p = 1 \quad\rightarrow\quad \text{Poisson}(\lambda)$
 
 $$
 \mathrm{Tweedie}(\mu, \phi, p) = 
@@ -9,6 +11,8 @@ $$
     \mathrm{Gamma}(\alpha, \beta) &\quad p = 2\\
   \end{cases}
 $$
+
+
 
 Note that the tweedie distribution is parameterised in terms of $\mu$, $\phi$ and $p$. When  $p \in (1, 2)$, it is sometimes called the tweedie compound poisson distribtution and is equivalent to the compound poisson-gamma (CPG) distribution in terms of $\lambda$, $\alpha$, and $\beta$, where
 
