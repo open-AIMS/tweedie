@@ -12,7 +12,12 @@ $$
 \end{align*}
 $$
 
-for
+
+**CHECK/EDIT BELOW; CURRENTLY TWEEDIE PARAMETER MAPPINGS DONT SEEM TO APPLY TO EDGE CASES (EG $p=2 \implies \alpha = 0$; $p = 1 \implies \lambda = \mu/\phi$). EDIT DESCRIPTION TO INCLUDE DESCRIPTION OF POISSON AND GAMMA RANDOM VARIABLES AND RECONCILE THE PARAMETER MAPPINGS FOR THE EDGE CASES. SHOULD ALSO CONNECT MATH BELOW TO STANCODE.**
+
+
+When $p \in (1, 2)$ we have the following parameter mappings
+
 
 $$
 \begin{align*}
@@ -22,6 +27,15 @@ $$
                {p-1}  \\ \\
 \beta &= \frac{\mu^{1-p}}
               {(p-1)\phi}
+\end{align*}
+$$
+
+and for $Y \sim \mathrm{Tweedie}\big(\mu, \phi, p\in (1, 2)\big)$ we have 
+
+$$
+\begin{align*}
+  E[Y] &= \lambda \frac{\alpha}{\beta} =: \mu\\
+  \mathrm{Var}[Y] &= \lambda \frac{\alpha(1 + \alpha)}{\beta^2} =: \phi\mu^p
 \end{align*}
 $$
 

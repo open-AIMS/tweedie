@@ -1,13 +1,11 @@
 # ===============================================
 #                USER FUNCTIONS
 # ===============================================
-model_realdata <- function(tweedie_def, species_type, custom_priors = FALSE, ...) {
+model_realdata <- function(data, priors, tweedie_def, priorsonly = FALSE) {
   source(tweedie_def)
   message(str(tweedie))
-  data <- get_realdata(species_type)
-  priors <- if (custom_priors) priors_realdata(species_type) else NULL
-  x <- fit_model_realdata(data, priors)
-  x$simres <- make_brms_dharma_res(x$mod)
+  x <- fit_model_realdata(data, priors, priorsonly = priorsonly)
+  if (!priorsonly) x$simres <- make_brms_dharma_res(x$mod)
   return(x)
 }
 # model_simdata <- function(tweedie_def, model_type, custom_priors = FALSE, ...) {
@@ -35,18 +33,22 @@ get_realdata <- function(species) {
 priors_realdata <- function(species) {
   if (species == "common") {
     priors <-
-      brms::prior(normal(2, 1), class = "b", lb = 0) +
-      brms::prior(gamma(2, 0.5), class = "sd") + 
+      brms::prior(normal(2, 1), class = "b") +
+      brms::prior(gamma(1, 1), class = "sd") + 
       brms::prior(gamma(2, 0.5), class = "mphi") + 
       brms::prior(uniform(1, 2), class = "mtheta") 
   }
   if (species == "rare") {
-    stop("priors not yet defined in R/functions.R:priors_realdata()")
+    priors <-
+      brms::prior(normal(1, 1), class = "b") +
+      brms::prior(gamma(1, 1), class = "sd") + 
+      brms::prior(gamma(2, 0.5), class = "mphi") + 
+      brms::prior(uniform(1, 2), class = "mtheta") 
   }
   return(priors)
 }
 # =====> MODEL REAL (CENSORED) BRUVS BIOMASS DATA
-fit_model_realdata <- function(data, priors) {
+fit_model_realdata <- function(data, priors, priorsonly) {
   x <- list()
   t1 <- Sys.time()
   x$mod <- brm(
@@ -55,7 +57,7 @@ fit_model_realdata <- function(data, priors) {
     family = tweedie, 
     stanvars = stanvars, 
     prior = priors,
-    sample_prior = "yes", 
+    sample_prior = ifelse(prioronly, "only", "yes"), 
     backend = "cmdstanr",
     iter = 1e4, warmup = 5e3, chains = 4, cores = 4, seed = 73,
     control = list(adapt_delta = 0.99, max_treedepth = 20)
@@ -137,5 +139,3 @@ fit_model_realdata <- function(data, priors) {
 #   )
 #   return(x)
 # }
-
-

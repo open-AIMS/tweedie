@@ -31,18 +31,19 @@ source("https://raw.githubusercontent.com/open-AIMS/stats_helpers/main/R/dharma.
 source("R/tweedie_functions.R")
 
 target_names <- c(
-  # "rd_cmn_idnt",  
-  "rd_cmn_logmu",  
-  # "rd_rare_idnt", 
-  "rd_rare_logmu"
+  "real_cmn_idnt",
+  "real_cmn_logmu",
+  "real_cmn_logmu_cpriors",
+  "real_cmn_logmuphi",
+
 )
 links <- rep(
   c(
-    # "I(mu); I(phi); I(p)", 
+    "I(mu); I(phi); I(p)", 
     "log(mu); I(phi); I(p)"
-    # "log(mu); log(phi); I(p)"
-  ), 
-  2
+    "log(mu); I(phi); I(p)"
+    "log(mu); log(phi); I(p)"
+  )
 )
 my_dharma <- function(dharma_res, form, plot_title) {
   pres_maxn <- plot_residuals(dharma_res, form = form)
